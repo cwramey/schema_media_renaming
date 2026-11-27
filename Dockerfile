@@ -54,7 +54,7 @@ FROM python:${PYTHON_VERSION}-slim AS runtime
 
 LABEL org.opencontainers.image.title="Schema" \
       org.opencontainers.image.description="Web-native media organizer and renamer (FileBot replacement)" \
-      org.opencontainers.image.licenses="Proprietary"
+      org.opencontainers.image.licenses="MIT"
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends mediainfo tini gosu tzdata ca-certificates \

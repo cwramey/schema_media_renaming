@@ -149,3 +149,7 @@ logo/      source brand assets (processed by scripts/brand.py)
 - **Hardlinks** - fail across filesystems (including between Unraid `/mnt/user` shares) with a clear error instead of copying.
 - **Reverse proxy** - Schema must be served at the root of a host name; sub-paths such as `/schema/` are not supported.
 - **Not in v1** - music and photo renaming, subtitle downloading, artwork / NFO writing, multi-user roles and transcoding.
+
+## License
+
+[MIT](LICENSE)
