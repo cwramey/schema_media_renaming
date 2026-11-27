@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<anime-list>
+  <anime anidbid="61001" tvdbid="99100" defaulttvdbseason="1" episodeoffset="" tmdbid="" imdbid="">
+    <name>Sora no Kaizoku</name>
+    <mapping-list>
+      <mapping anidbseason="0" tvdbseason="0">;1-3;</mapping>
+    </mapping-list>
+  </anime>
+  <anime anidbid="61002" tvdbid="99100" defaulttvdbseason="2" episodeoffset="0" tmdbtv="4400" tmdbseason="1" tmdboffset="12" imdbid="">
+    <name>Sora no Kaizoku 2nd Season</name>
+  </anime>
+  <anime anidbid="61003" tvdbid="99100" defaulttvdbseason="3" episodeoffset="">
+    <name>Sora no Kaizoku Final</name>
+    <mapping-list>
+      <mapping anidbseason="1" tvdbseason="3" start="1" end="10" offset="0"/>
+      <mapping anidbseason="1" tvdbseason="0">;11-4;</mapping>
+    </mapping-list>
+  </anime>
+  <anime anidbid="61010" tvdbid="99200" defaulttvdbseason="a" episodeoffset="100">
+    <name>Long Runner</name>
+  </anime>
+  <anime anidbid="61020" tvdbid="movie" defaulttvdbseason="1" imdbid="tt6102000">
+    <name>Sora Movie</name>
+  </anime>
+</anime-list>

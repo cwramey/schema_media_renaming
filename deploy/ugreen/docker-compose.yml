@@ -1,0 +1,72 @@
+# Schema on a UGREEN NASync DXP4800+ (UGOS Pro, Docker app -> Project -> Create, or `docker compose up -d`).
+#
+# Runs in non-root, read-only mode: the container never runs as root, has no capabilities and can
+# write only to /config, your media share and a small /tmp in memory.
+#
+# Before the first start:
+#   1. SSH in and run `id <your-user>` to find the uid/gid that own your media; put them in `user:`.
+#   2. Create the appdata folder (ideally on an NVMe/SSD volume: SQLite likes low latency) and give
+#      it to that user, e.g. `mkdir -p /volume1/docker/schema && chown -R 1000:1000 /volume1/docker/schema`.
+#      It must NOT be inside the media share mounted below.
+#   3. Put the address you open Schema with into SCHEMA_ALLOWED_HOSTS, and adjust the /volumeN paths.
+#   4. Start it, then read the one-time setup code: `docker logs schema` (or the container log in UGOS)
+#      and open http://<nas-ip>:8420 to create the admin account.
+#   5. In Schema: Settings -> Allowed roots = /media; library roots per kind (e.g. /media/movies,
+#      /media/tv, /media/anime) to match your Jellyfin libraries; downloads arrive in /media/downloads.
+#
+# ONE mount holds the downloads AND the library (here: downloads/ inside the media share). Then a move
+# is an instant rename and hardlinks work. With two mounts (/volume1/downloads and /volume1/media)
+# every move is a full copy plus a CRC read-back on the HDDs, even though both are on volume1.
+# A TRaSH-guides style share works the same: /volume1/data (downloads/, media/) mounted at /data.
+
+services:
+  schema:
+    image: schema-media:latest
+    build: ../..
+    container_name: schema
+    restart: unless-stopped
+    user: "1000:1000"            # uid:gid from `id <your-user>`; root (0) is refused
+    # group_add: ["1001"]        # extra groups, e.g. one that owns a share (replaces SUP_GROUP_IDS)
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    pids_limit: 256
+    # 8 GB NAS shared with Jellyfin: cap Schema so a 50k-file job can't starve transcoding.
+    cpus: 2.0
+    mem_limit: 1536m
+    # Time for a running copy to finish on stop/update (default 10 s). Watchtower ignores this:
+    # give it --stop-timeout 120s (or WATCHTOWER_TIMEOUT=120s) as well.
+    stop_grace_period: 2m
+    ports:
+      - "8420:8420"            # or "<nas-lan-ip>:8420:8420"; "127.0.0.1:8420:8420" behind a proxy on the NAS
+    environment:
+      UMASK: "002"
+      TZ: "Etc/UTC"
+      # Host names / IPs you open Schema with, comma separated (loopback is always allowed).
+      SCHEMA_ALLOWED_HOSTS: "192.168.1.20"
+      # Provider keys: enter them in Settings -> Providers (stored owner-only in /config). As
+      # environment variables they'd be readable by anyone who can run `docker inspect`.
+    volumes:
+      - /volume1/docker/schema:/config
+      - /volume1/media:/media    # downloads/, movies/, tv/, anime/ ... in one share
+    healthcheck:
+      test: ["CMD", "python", "/usr/local/bin/schema-healthcheck"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+    # ---------------------------------------------------------------------------------------------
+    # Root-mode fallback. Use it only when non-root mode can't work: the appdata folder can't be
+    # chowned to your user (e.g. an existing /config written by a container that ran as root, or a
+    # network share with root_squash), or your Docker UI can't set `user:`. The entrypoint then
+    # starts as root, creates a user from PUID/PGID, fixes /config ownership and drops to that user.
+    # Delete `user:`, `group_add:`, `read_only:` and `tmpfs:` above, add this capability list and
+    # put PUID/PGID (and optionally SUP_GROUP_IDS) into `environment:`:
+    #
+    # cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]   # used by the entrypoint only
+    #   PUID: "1000"
+    #   PGID: "1000"
+    #   SUP_GROUP_IDS: "1001"

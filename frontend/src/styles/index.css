@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens (SPEC §9.1). Values are "R G B" triplets so Tailwind can apply
+ * opacity modifiers (bg-ink-900/80). Dark is the default; [data-theme="light"]
+ * swaps surfaces, text and status colors for AA contrast on light surfaces.
+ */
+@layer base {
+  :root,
+  [data-theme='dark'] {
+    color-scheme: dark;
+    --ink-950: 15 18 22; /* #0F1216 app bg */
+    --ink-900: 21 24 29; /* #15181D surface */
+    --ink-850: 27 31 37; /* #1B1F25 raised */
+    --ink-800: 38 43 51; /* #262B33 border */
+    --ink-700: 54 61 72; /* #363D48 strong border / hover */
+    --ice-100: 214 237 243; /* #D6EDF3 primary text */
+    --slate-400: 139 149 163; /* #8B95A3 muted text */
+    --accent: 29 198 239; /* brand-sky */
+    --ring: 29 198 239;
+    --success: 52 211 153;
+    --warning: 251 191 36;
+    --danger: 248 113 113;
+    --info: 96 165 250;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+    --ink-950: 243 245 248; /* app bg */
+    --ink-900: 255 255 255; /* surface */
+    --ink-850: 247 249 251; /* raised */
+    --ink-800: 216 222 230; /* border */
+    --ink-700: 186 194 205;
+    --ice-100: 21 24 29; /* primary text (#15181D) */
+    --slate-400: 82 92 106; /* muted text, 6:1 on white */
+    --accent: 3 106 140; /* #036A8C: >= 4.8:1 on every light surface and tint */
+    --ring: 3 136 178;
+    --success: 4 105 76; /* #04694C */
+    --warning: 154 69 7; /* #9A4507 */
+    --danger: 200 30 30; /* #C81E1E */
+    --info: 29 78 216; /* #1D4ED8 */
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-[13px] leading-5 text-ice-100 antialiased;
+    font-feature-settings: 'cv11', 'ss01', 'tnum' 0;
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgb(29 198 239 / 0.3);
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    @apply font-mono;
+  }
+
+  /* Thin, theme-aware scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--ink-700)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgb(var(--ink-700));
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  input[type='number']::-webkit-inner-spin-button {
+    opacity: 0.4;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-xl border border-ink-800 bg-ink-900;
+  }
+  .label {
+    @apply text-xs font-medium text-muted;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Primary CTA: brand gradient, sized so the label sits on the cyan→azure part (AA with ink text). */
+  .btn-gradient {
+    background-image: linear-gradient(135deg, #0ce7fa, #4998d1 45%, #7a33b3);
+    background-size: 165% 100%;
+    background-position: 0% 50%;
+    transition: background-position 300ms ease, filter 150ms ease, box-shadow 150ms ease;
+  }
+  .btn-gradient:hover:not(:disabled) {
+    background-position: 30% 50%;
+  }
+  .text-brand-gradient {
+    background-image: linear-gradient(135deg, #0ce7fa, #4998d1 45%, #7a33b3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .skeleton {
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--ink-850)) 0%,
+      rgb(var(--ink-800)) 40%,
+      rgb(var(--ink-850)) 80%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-md;
+  }
+  .squiggle-error {
+    text-decoration: underline wavy rgb(var(--danger));
+    text-decoration-skip-ink: none;
+    text-underline-offset: 3px;
+  }
+  .squiggle-warning {
+    text-decoration: underline wavy rgb(var(--warning));
+    text-decoration-skip-ink: none;
+    text-underline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

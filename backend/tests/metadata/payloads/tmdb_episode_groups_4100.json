@@ -1,0 +1,21 @@
+{
+  "groups_list": {"id": 4100, "results": [
+    {"id": "grp-dvd", "type": 3, "name": "DVD Order", "episode_count": 5, "group_count": 1},
+    {"id": "grp-abs", "type": 2, "name": "Absolute", "episode_count": 5, "group_count": 1}
+  ]},
+  "grp-dvd": {"id": "grp-dvd", "type": 3, "groups": [
+    {"name": "Disc Set 1", "order": 1, "episodes": [
+      {"id": 90002, "season_number": 1, "episode_number": 2, "name": "The Keeper", "order": 0},
+      {"id": 90001, "season_number": 1, "episode_number": 1, "name": "Low Water", "order": 1},
+      {"id": 90003, "season_number": 1, "episode_number": 3, "name": "Squall", "order": 2},
+      {"id": 90004, "season_number": 2, "episode_number": 1, "name": "High Water", "order": 3},
+      {"id": 90005, "season_number": 2, "episode_number": 2, "name": "Last Lamp", "order": 4}
+    ]}
+  ]},
+  "grp-abs": {"id": "grp-abs", "type": 2, "groups": [
+    {"name": "Absolute", "order": 1, "episodes": [
+      {"id": 90001, "order": 0}, {"id": 90003, "order": 1}, {"id": 90002, "order": 2},
+      {"id": 90004, "order": 3}, {"id": 90005, "order": 4}
+    ]}
+  ]}
+}

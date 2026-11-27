@@ -1,0 +1,46 @@
+{
+  "tvmaze_search": [
+    {"score": 0.91, "show": {"id": 7001, "name": "Glass Harbour", "type": "Scripted", "language": "English",
+      "genres": ["Drama"], "status": "Ended", "premiered": "2014-02-10", "weight": 71,
+      "network": {"id": 3, "name": "Northern Channel"}, "webChannel": null,
+      "externals": {"tvrage": null, "thetvdb": 88001, "imdb": "tt8800001"},
+      "image": {"medium": "https://static.example/gh.jpg"}, "summary": "<p>Lighthouse <b>drama</b>.</p>",
+      "rating": {"average": 7.7}}},
+    {"score": 0.40, "show": {"id": 7002, "name": "Glass Harbour", "type": "Scripted", "language": "English",
+      "genres": [], "premiered": "1991-01-01", "externals": {}, "weight": 3}}
+  ],
+  "tvmaze_akas": [{"name": "Glashafen", "country": {"code": "DE"}}],
+  "tvmaze_episodes": [
+    {"id": 1, "season": 1, "number": 1, "name": "Low Water", "airdate": "2014-02-10", "type": "regular"},
+    {"id": 2, "season": 1, "number": 2, "name": "The Keeper", "airdate": "2014-02-17", "type": "regular"},
+    {"id": 3, "season": 1, "number": null, "name": "Behind the Glass", "airdate": "2014-12-24", "type": "significant_special"},
+    {"id": 4, "season": 2, "number": 1, "name": "High Water", "airdate": "2015-03-02", "type": "regular"},
+    {"id": 5, "season": 2, "number": null, "name": "Reunion", "airdate": "2016-01-01", "type": "insignificant_special"}
+  ],
+  "trakt_search_show": [
+    {"type": "show", "score": 1000, "show": {"title": "Glass Harbour", "year": 2014,
+      "ids": {"trakt": 3301, "slug": "glass-harbour", "tvdb": 88001, "imdb": "tt8800001", "tmdb": 4100}}}
+  ],
+  "trakt_show": {"title": "Glass Harbour", "year": 2014, "ids": {"trakt": 3301, "slug": "glass-harbour", "tvdb": 88001,
+    "imdb": "tt8800001", "tmdb": 4100}, "first_aired": "2014-02-10T21:00:00.000Z", "network": "Northern Channel",
+    "status": "ended", "genres": ["drama"], "certification": "TV-14", "rating": 7.9, "votes": 820, "language": "en"},
+  "trakt_seasons": [
+    {"number": 0, "episodes": [{"season": 0, "number": 1, "title": "Behind the Glass", "ids": {"trakt": 1, "tvdb": 1001},
+      "number_abs": null, "first_aired": "2014-12-24T21:00:00.000Z"}]},
+    {"number": 1, "episodes": [
+      {"season": 1, "number": 1, "title": "Low Water", "ids": {"trakt": 2, "tvdb": 1002}, "number_abs": null,
+       "first_aired": "2014-02-10T21:00:00.000Z"},
+      {"season": 1, "number": 2, "title": "The Keeper", "ids": {"trakt": 3}, "number_abs": null,
+       "first_aired": "2014-02-17T21:00:00.000Z"}]},
+    {"number": 2, "episodes": [
+      {"season": 2, "number": 1, "title": "High Water", "ids": {"trakt": 4}, "number_abs": null,
+       "first_aired": "2015-03-02T21:00:00.000Z"}]}
+  ],
+  "trakt_search_movie": [
+    {"type": "movie", "score": 900, "movie": {"title": "Copper Sky", "year": 2011,
+      "ids": {"trakt": 501, "slug": "copper-sky-2011", "imdb": "tt5100001", "tmdb": 51001}}}
+  ],
+  "trakt_movie": {"title": "Copper Sky", "year": 2011, "ids": {"trakt": 501, "slug": "copper-sky-2011", "imdb": "tt5100001",
+    "tmdb": 51001}, "released": "2011-06-03", "runtime": 104, "genres": ["drama"], "certification": "PG-13",
+    "rating": 6.9, "votes": 210, "language": "en", "overview": "A drought story."}
+}

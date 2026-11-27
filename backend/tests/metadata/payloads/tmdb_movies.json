@@ -1,0 +1,20 @@
+{
+  "search": {"page": 1, "results": [
+    {"id": 51001, "title": "Copper Sky", "original_title": "Copper Sky", "release_date": "2011-06-03",
+     "popularity": 21.5, "original_language": "en", "poster_path": "/cs.jpg", "overview": "A drought story."},
+    {"id": 51002, "title": "Copper Sky", "original_title": "Copper Sky", "release_date": "1962-09-14",
+     "popularity": 2.5, "original_language": "en"}
+  ]},
+  "details": {
+    "id": 51001, "title": "Copper Sky", "original_title": "Copper Sky", "release_date": "2011-06-03",
+    "imdb_id": "tt5100001", "runtime": 104, "popularity": 21.5, "vote_average": 6.8, "original_language": "en",
+    "genres": [{"id": 18, "name": "Drama"}],
+    "belongs_to_collection": {"id": 9, "name": "Copper Sky Collection"},
+    "external_ids": {"imdb_id": "tt5100001"},
+    "alternative_titles": {"titles": [{"iso_3166_1": "FR", "title": "Ciel de Cuivre"}]},
+    "release_dates": {"results": [
+      {"iso_3166_1": "DE", "release_dates": [{"certification": "12"}]},
+      {"iso_3166_1": "US", "release_dates": [{"certification": ""}, {"certification": "PG-13"}]}
+    ]}
+  }
+}

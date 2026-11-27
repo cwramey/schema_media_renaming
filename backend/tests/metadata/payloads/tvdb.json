@@ -1,0 +1,39 @@
+{
+  "login": {"status": "success", "data": {"token": "tok-1"}},
+  "login2": {"status": "success", "data": {"token": "tok-2"}},
+  "search": {"status": "success", "data": [
+    {"objectID": "series-88001", "tvdb_id": "88001", "name": "Glass Harbour (2014)", "year": "2014",
+     "first_air_time": "2014-02-10", "aliases": ["Glashafen"], "translations": {"eng": "Glass Harbour (2014)"},
+     "image_url": "https://artworks.example/gh.jpg", "network": "Northern Channel", "status": "Ended",
+     "primary_language": "eng",
+     "remote_ids": [{"id": "tt8800001", "type": 2, "sourceName": "IMDB"}, {"id": "4100", "type": 12, "sourceName": "TheMovieDB.com"}]},
+    {"objectID": "series-88002", "tvdb_id": "88002", "name": "Kumo no Ito", "year": "2020",
+     "genres": ["Animation", "Anime"], "translations": {"eng": "Spider Thread"}}
+  ]},
+  "extended": {"status": "success", "data": {
+    "id": 88001, "name": "Glass Harbour (2014)", "year": "2014", "firstAired": "2014-02-10",
+    "aliases": [{"language": "deu", "name": "Glashafen"}],
+    "remoteIds": [{"id": "tt8800001", "type": 2, "sourceName": "IMDB"}, {"id": "4100", "type": 12, "sourceName": "TheMovieDB.com"},
+                  {"id": "7001", "type": 19, "sourceName": "TV Maze"}],
+    "seasons": [
+      {"id": 1, "number": 0, "type": {"id": 1, "type": "official"}},
+      {"id": 2, "number": 1, "type": {"id": 1, "type": "official"}},
+      {"id": 3, "number": 2, "type": {"id": 1, "type": "official"}},
+      {"id": 4, "number": 1, "type": {"id": 2, "type": "dvd"}}
+    ],
+    "genres": [{"id": 1, "name": "Drama"}],
+    "originalLanguage": "eng", "status": {"name": "Ended"}, "originalNetwork": {"name": "Northern Channel"},
+    "score": 5400, "image": "https://artworks.example/gh.jpg", "overview": "Lighthouse drama.",
+    "translations": {"nameTranslations": [{"language": "eng", "name": "Glass Harbour (2014)"}]}
+  }},
+  "episodes_page0": {"status": "success", "data": {"series": {"id": 88001}, "episodes": [
+    {"id": 1001, "seasonNumber": 0, "number": 1, "absoluteNumber": null, "name": "Behind the Glass", "aired": "2014-12-24"},
+    {"id": 1002, "seasonNumber": 1, "number": 1, "absoluteNumber": 1, "name": "Low Water", "aired": "2014-02-10"},
+    {"id": 1003, "seasonNumber": 1, "number": 2, "absoluteNumber": 2, "name": "The Keeper", "aired": "2014-02-17"}
+  ]}, "links": {"prev": null, "self": "page=0", "next": "https://api4.thetvdb.com/v4/series/88001/episodes/default/eng?page=1"}},
+  "episodes_page1": {"status": "success", "data": {"series": {"id": 88001}, "episodes": [
+    {"id": 1004, "seasonNumber": 1, "number": 3, "absoluteNumber": 3, "name": "Squall", "aired": "2014-02-24"},
+    {"id": 1005, "seasonNumber": 2, "number": 1, "absoluteNumber": 4, "name": "High Water", "aired": "2015-03-02"},
+    {"id": 1006, "seasonNumber": 2, "number": 2, "absoluteNumber": 5, "name": "Last Lamp", "aired": "2015-03-09"}
+  ]}, "links": {"prev": "page=0", "self": "page=1", "next": null}}
+}

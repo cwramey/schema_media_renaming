@@ -1,0 +1,112 @@
+# Schema: drop-in for the jlesage/filebot container.
+#
+#   docker compose up -d --build        # builds the image from this repo and starts it
+#   open http://<server>:8420           # first visit creates the admin account
+#
+# Volumes mirror jlesage/filebot, so the same host folders can be mounted:
+#   /config   database, HTTP cache, trash, secret key   (jlesage: app config + license)
+#   /storage  your downloads AND media, in ONE mount    (jlesage: /storage)
+#   /watch    optional watch folder                     (jlesage: AMC input)
+#   /output   optional output / library root            (jlesage: AMC output)
+# Inside Schema, add the folders you want it to touch under Settings -> Allowed roots
+# (for example /storage/downloads and /storage/media), then set the library roots per kind.
+# docs/DEPLOYMENT.md explains the mount layout, non-root mode and HTTPS.
+
+services:
+  schema:
+    build: .
+    image: schema-media:latest
+    container_name: schema
+    restart: unless-stopped
+    # Root mode: the entrypoint needs root only to create the PUID user, fix /config ownership and
+    # drop privileges with gosu; Schema itself then runs unprivileged with no capabilities.
+    # Stricter, with no root at all and a read-only image (docs/DEPLOYMENT.md §3, "Non-root mode"):
+    # delete cap_add, PUID and PGID, make ./appdata/schema owned by 1000:1000, then add
+    #   user: "1000:1000"
+    #   group_add: ["1001"]          # instead of SUP_GROUP_IDS (optional)
+    #   read_only: true
+    #   tmpfs: ["/tmp:size=256m"]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+    # Limits: a 50k-file job must not starve the rest of the server.
+    cpus: 2.0
+    mem_limit: 1536m
+    pids_limit: 256
+    # Time for a running copy to finish on `docker stop` (default 10 s). Watchtower ignores this and
+    # uses its own --stop-timeout (WATCHTOWER_TIMEOUT); set that to 120s too.
+    stop_grace_period: 2m
+    ports:
+      # All interfaces. "192.168.1.20:8420:8420" listens on one LAN address only; behind a reverse
+      # proxy on this host use "127.0.0.1:8420:8420" (docs/DEPLOYMENT.md §6).
+      - "8420:8420"
+    environment:
+      PUID: "1000"            # user that owns your media (Unraid: 99); 0 (root) is refused
+      PGID: "1000"            # its group (Unraid: 100)
+      UMASK: "022"            # 002 if other members of PGID must be able to write what Schema creates
+      TZ: "Etc/UTC"
+      # Host names and IPs you open Schema with, comma separated, e.g. "nas.lan,192.168.1.20" or
+      # "schema.example.com" behind a proxy. Blocks DNS-rebinding pages from reaching the API;
+      # empty answers any host. (Loopback is always allowed, for the healthcheck.)
+      SCHEMA_ALLOWED_HOSTS: ""
+      # SUP_GROUP_IDS: "1001"         # extra groups, comma separated
+      # SCHEMA_AUTH: "disabled"       # only on a trusted LAN; there is no login then
+      # SCHEMA_SETUP_TOKEN: ""        # first-run setup code (otherwise generated: docker logs schema)
+      # FORWARDED_ALLOW_IPS: "172.18.0.5"             # reverse proxy IP, for per-client login limits
+      # SCHEMA_LOG_LEVEL: "info"
+      # Provider keys: enter them in the UI (Settings -> Providers), where they're stored in /config.
+      # Environment variables work too, but anyone who can run `docker inspect` can read them.
+      # TMDB_API_KEY: ""
+    volumes:
+      - ./appdata/schema:/config
+      # ONE mount that holds both your downloads and your library, e.g. /mnt/user/data/downloads
+      # and /mnt/user/data/media. Moves inside one mount are instant renames and hardlinks work;
+      # between two mounts every move is a full copy plus a read-back, even on the same disk.
+      # Never mount a folder that contains appdata (like all of /mnt/user): Schema's own secret.key
+      # and database, and every other container's config, would be inside its reach.
+      - /mnt/user/data:/storage
+      # Optional, but they are separate mounts (moves to or from them are copies). Prefer adding a
+      # folder under /storage as a watch folder or library root instead.
+      # - /mnt/user/data/downloads/complete:/watch
+      # - /mnt/user/data/media:/output
+    # Same network as the download clients, so their hooks can call http://schema:8420:
+    # networks:
+    #   - media
+
+  # ---------------------------------------------------------------------------
+  # Examples: download clients on the same network. Mount downloads at the same
+  # path in every container (here /storage/downloads) and no path mapping is needed.
+  # Otherwise add a mapping in Schema (Settings -> Automation -> Path mappings).
+  #
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent:latest
+  #   environment: { PUID: "1000", PGID: "1000", TZ: "Etc/UTC", WEBUI_PORT: "8080" }
+  #   volumes:
+  #     - ./appdata/qbittorrent:/config
+  #     - /mnt/user/data/downloads:/storage/downloads
+  #   ports: ["8080:8080"]
+  #   networks: [media]
+  #   # Tools -> Options -> Downloads -> Run external program on torrent finished. The key stays off the
+  #   # command line: /config/schema-api-key (in qBittorrent's /config, chmod 600) holds one line,
+  #   # `X-Api-Key: KEY`.
+  #   # curl -fsS -X POST -H @/config/schema-api-key --data-urlencode "content_path=%F" --data-urlencode "name=%N" --data-urlencode "category=%L" --data-urlencode "hash=%I" --data-urlencode "save_path=%D" "http://schema:8420/api/webhooks/qbittorrent"
+  #
+  # sabnzbd:
+  #   image: lscr.io/linuxserver/sabnzbd:latest
+  #   environment:
+  #     PUID: "1000"
+  #     PGID: "1000"
+  #     TZ: "Etc/UTC"
+  #     SCHEMA_URL: "http://schema:8420"     # read by deploy/hooks/sabnzbd/schema_notify.py
+  #     SCHEMA_API_KEY: "KEY"
+  #   volumes:
+  #     - ./appdata/sabnzbd:/config
+  #     - ./deploy/hooks/sabnzbd:/scripts:ro  # set Config -> Folders -> Scripts Folder to /scripts
+  #     - /mnt/user/data/downloads:/storage/downloads
+  #   ports: ["8081:8080"]
+  #   networks: [media]
+
+# networks:
+#   media:
+#     name: media

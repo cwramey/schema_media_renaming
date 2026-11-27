@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+  Unraid Docker template for Schema.
+  Install: copy to /boot/config/plugins/dockerMan/templates-user/my-schema.xml, then
+  Docker -> Add Container -> Template: "Schema".
+  The image is built on the server from this repository (docker build -t schema-media:latest .);
+  change <Repository> if you push it to a registry.
+
+  Storage: ONE share that holds both downloads and media (e.g. /mnt/user/data with downloads/ and
+  media/ inside), so moves are renames instead of copies and hardlinks work. Never map all of
+  /mnt/user: that would also put appdata (Schema's secret.key and database, every other
+  container's config) inside Schema's reach. See docs/DEPLOYMENT.md section 3.
+
+  Extra Parameters run the container in root mode with only the capabilities the entrypoint needs
+  to create the PUID user and drop to it. Non-root mode (stricter, read-only image) is described
+  in docs/DEPLOYMENT.md section 4: make /mnt/user/appdata/schema owned by 99:100 first, then swap
+  the cap-add flags for the user, read-only and tmpfs flags shown there. (XML comments can't hold
+  the double-dash flags themselves.)
+-->
+<Container version="2">
+  <Name>Schema</Name>
+  <Repository>schema-media:latest</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview>Schema is a web-native media organizer and renamer for movies, TV and anime, replacing FileBot and the jlesage/filebot noVNC container. It matches files against TMDb, TheTVDB, AniDB, Trakt and TVmaze, shows a reviewable preview of every rename, and moves, copies or links files with conflict policies, sidecar handling and full undo. Watch folders, SABnzbd/qBittorrent webhooks and Plex/Jellyfin/Emby refresh are built in. FileBot-style formats such as {n} - {s00e00} - {t} work as-is. The volume layout matches jlesage/filebot (/config, /storage, /watch, /output).</Overview>
+  <Category>MediaApp:Video Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:8420]/</WebUI>
+  <TemplateURL/>
+  <Icon/>
+  <ExtraParams>--security-opt no-new-privileges --cap-drop ALL --cap-add CHOWN --cap-add DAC_OVERRIDE --cap-add FOWNER --cap-add SETGID --cap-add SETUID --pids-limit 256 --memory 1536m --cpus 2 --stop-timeout 120</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Build the image first: docker build -t schema-media:latest /path/to/schema_media_renaming</Requires>
+  <Config Name="Web UI port" Target="8420" Default="8420" Mode="tcp" Description="Schema web interface and API (webhooks use it too)." Type="Port" Display="always" Required="true" Mask="false">8420</Config>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/schema" Mode="rw" Description="Database, provider cache, trash for replaced files, secret key. Back this up." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/schema</Config>
+  <Config Name="Storage" Target="/storage" Default="/mnt/user/data" Mode="rw" Description="ONE share holding both your downloads and your media (e.g. data/downloads and data/media), so moves are instant renames. Never all of /mnt/user: it contains appdata. Add the folders Schema may touch under Settings -&gt; Allowed roots." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/data</Config>
+  <Config Name="Watch folder" Target="/watch" Default="" Mode="rw" Description="Optional: the folder FileBot's AMC watched. A separate mount, so files moved from it are copied; a folder under Storage is faster. Add it as a watch folder in Schema." Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="Output folder" Target="/output" Default="" Mode="rw" Description="Optional: where FileBot's AMC wrote renamed files. A separate mount, so files moved into it are copied; a folder under Storage is faster. Use it as a library root in Schema." Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User id Schema runs as (Unraid: 99 = nobody). USER_ID is accepted too. 0 (root) is refused unless SCHEMA_ALLOW_ROOT=1." Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group id Schema runs as (Unraid: 100 = users). GROUP_ID is accepted too. 0 (root) is refused unless SCHEMA_ALLOW_ROOT=1." Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
+  <Config Name="UMASK" Target="UMASK" Default="022" Mode="" Description="Permission mask (octal) for new files and folders. 022: only PUID can write them; 002: the PGID group too. 000 makes renamed media writable by everyone." Type="Variable" Display="advanced" Required="false" Mask="false">022</Config>
+  <Config Name="TZ" Target="TZ" Default="Etc/UTC" Mode="" Description="Time zone, e.g. America/New_York." Type="Variable" Display="advanced" Required="false" Mask="false">Etc/UTC</Config>
+  <Config Name="Allowed hosts" Target="SCHEMA_ALLOWED_HOSTS" Default="" Mode="" Description="Host names and IPs you open Schema with, comma separated (e.g. tower.local,192.168.1.20). Blocks DNS-rebinding pages from reaching the API; empty answers any host." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Authentication" Target="SCHEMA_AUTH" Default="required" Mode="" Description="required (default) or disabled. Only disable on a trusted LAN." Type="Variable" Display="advanced" Required="false" Mask="false">required</Config>
+  <Config Name="TMDb API key" Target="TMDB_API_KEY" Default="" Mode="" Description="Optional. Better: enter it in the UI (Settings -&gt; Providers); a variable is readable by anyone who can run docker inspect." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+  <Config Name="TheTVDB API key" Target="TVDB_API_KEY" Default="" Mode="" Description="Optional. Better: enter it in the UI (Settings -&gt; Providers)." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+  <Config Name="TheTVDB PIN" Target="TVDB_PIN" Default="" Mode="" Description="Optional subscriber PIN." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+  <Config Name="Log level" Target="SCHEMA_LOG_LEVEL" Default="info" Mode="" Description="debug, info, warning or error." Type="Variable" Display="advanced" Required="false" Mask="false">info</Config>
+</Container>

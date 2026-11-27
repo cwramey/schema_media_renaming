@@ -1,0 +1,14 @@
+{
+  "0": {"season_number": 0, "episodes": [
+    {"id": 90100, "season_number": 0, "episode_number": 1, "name": "Behind the Glass", "air_date": "2014-12-24"}
+  ]},
+  "1": {"season_number": 1, "episodes": [
+    {"id": 90001, "season_number": 1, "episode_number": 1, "name": "Low Water", "air_date": "2014-02-10"},
+    {"id": 90002, "season_number": 1, "episode_number": 2, "name": "The Keeper", "air_date": "2014-02-17"},
+    {"id": 90003, "season_number": 1, "episode_number": 3, "name": "Squall", "air_date": "2014-02-24"}
+  ]},
+  "2": {"season_number": 2, "episodes": [
+    {"id": 90004, "season_number": 2, "episode_number": 1, "name": "High Water", "air_date": "2015-03-02"},
+    {"id": 90005, "season_number": 2, "episode_number": 2, "name": "Last Lamp", "air_date": "2015-03-09"}
+  ]}
+}

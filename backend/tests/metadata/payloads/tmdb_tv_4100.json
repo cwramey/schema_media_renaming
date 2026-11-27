@@ -1,0 +1,21 @@
+{
+  "id": 4100,
+  "name": "Glass Harbour",
+  "original_name": "Glass Harbour",
+  "first_air_date": "2014-02-10",
+  "number_of_seasons": 2,
+  "status": "Ended",
+  "popularity": 33.2,
+  "vote_average": 7.9,
+  "original_language": "en",
+  "origin_country": ["GB"],
+  "genres": [{"id": 18, "name": "Drama"}],
+  "networks": [{"id": 1, "name": "Northern Channel"}],
+  "seasons": [
+    {"season_number": 0, "episode_count": 1, "name": "Specials"},
+    {"season_number": 1, "episode_count": 3, "name": "Season 1"},
+    {"season_number": 2, "episode_count": 2, "name": "Season 2"}
+  ],
+  "external_ids": {"tvdb_id": 88001, "imdb_id": "tt8800001"},
+  "alternative_titles": {"results": [{"iso_3166_1": "DE", "title": "Glashafen"}]}
+}

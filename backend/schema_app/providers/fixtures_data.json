@@ -1,0 +1,243 @@
+{
+  "_comment": "Fictional offline catalogue for SCHEMA_DEMO=1 and tests (SPEC 6.5). Every title, id and episode name is invented. Seasons list episode titles in order; air dates are weekly from the season premiere unless an explicit 'episodes' list is given. Absolute numbers are cumulative over regular seasons.",
+  "series": [
+    {
+      "id": "900001",
+      "title": "Starfall Station",
+      "year": 2016,
+      "first_aired": "2016-09-18",
+      "aliases": [],
+      "overview": "The crew of a failing orbital waystation keeps the lights on at the edge of charted space.",
+      "ids": {"tvdb": "900001", "tmdb": "800001", "imdb": "tt9000001"},
+      "popularity": 64.0,
+      "status": "Ended",
+      "network": "Meridian One",
+      "genres": ["Drama", "Science Fiction"],
+      "is_anime": false,
+      "original_language": "en",
+      "certification": "TV-14",
+      "rating": 8.1,
+      "seasons": [
+        {"number": 1, "premiere": "2016-09-18", "titles": ["Arrival Protocol", "Dead Reckoning", "The Long Orbit", "Signal Fade", "Hull Breach", "Quiet Hours", "The Cartographer", "Docking Rights", "Eclipse Shift", "Starfall"]},
+        {"number": 2, "premiere": "2017-09-17", "titles": ["Return Vector", "Salt and Static", "The Inheritance", "Coldwater", "Ballast", "Parallax", "Lantern Bay", "Ninety Seconds", "The Long Dark", "Fault Lines"]},
+        {"number": 3, "premiere": "2018-09-16", "titles": ["Afterglow", "New Tenants", "Ghosts in the Array", "Undertow", "The Spindle", "Redshift", "Common Ground", "Glass Harbor", "Last Light", "Homeward"]}
+      ],
+      "specials": [
+        {"title": "The Making of Starfall", "air_date": "2016-11-27"},
+        {"title": "Christmas Special", "air_date": "2017-12-24"}
+      ]
+    },
+    {
+      "id": "900002",
+      "title": "Starfall",
+      "year": 1998,
+      "first_aired": "1998-01-11",
+      "aliases": [],
+      "overview": "A small-town mystery about a meteor that never finished falling.",
+      "ids": {"tvdb": "900002", "tmdb": "800002", "imdb": "tt9000002"},
+      "popularity": 6.0,
+      "status": "Ended",
+      "network": "Channel Nine West",
+      "genres": ["Mystery"],
+      "is_anime": false,
+      "original_language": "en",
+      "seasons": [
+        {"number": 1, "premiere": "1998-01-11", "titles": ["Pilot", "Crossing", "Embers", "The Visitor", "Overgrowth", "Static Bloom", "Night Market", "Ironside", "Paper Walls", "The Archive", "Riverbend", "Old Debts", "Falling Star"]}
+      ]
+    },
+    {
+      "id": "900003",
+      "title": "Harbor Lights",
+      "year": 2008,
+      "first_aired": "2008-03-02",
+      "aliases": [],
+      "overview": "Two families run rival ferry lines across a foggy northern sound.",
+      "ids": {"tvdb": "900003", "tmdb": "800003", "imdb": "tt9000003"},
+      "popularity": 22.0,
+      "status": "Ended",
+      "network": "Coastline TV",
+      "genres": ["Drama"],
+      "is_anime": false,
+      "original_language": "en",
+      "seasons": [
+        {"number": 1, "premiere": "2008-03-02", "titles": ["Lighthouse Keeper", "Fog Warning", "The Ferry", "Tidewater", "Breakwater", "Low Tide", "Night Crossing", "Beacon"]},
+        {"number": 2, "premiere": "2009-03-01", "titles": ["Return to Port", "Driftwood", "The Regatta", "Undertow", "Northern Passage", "Gale Force", "Saltmarsh", "Harbor Lights"]}
+      ]
+    },
+    {
+      "id": "900004",
+      "title": "Harbor Lights",
+      "year": 2021,
+      "first_aired": "2021-06-04",
+      "aliases": [],
+      "overview": "A reimagining: a marine biologist comes home to a town that never forgave her.",
+      "ids": {"tvdb": "900004", "tmdb": "800004", "imdb": "tt9000004"},
+      "popularity": 31.0,
+      "status": "Continuing",
+      "network": "Tidal+",
+      "genres": ["Drama", "Romance"],
+      "is_anime": false,
+      "original_language": "en",
+      "seasons": [
+        {"number": 1, "premiere": "2021-06-04", "titles": ["Homecoming", "The Pier", "Shipwright", "Moorings", "Sea Glass", "Lights Out"]}
+      ]
+    },
+    {
+      "id": "900005",
+      "title": "The Late Hour with Sam Reyes",
+      "year": 2019,
+      "first_aired": "2019-01-07",
+      "aliases": ["Late Hour"],
+      "overview": "A nightly talk show with guests, music and a very tired house band.",
+      "ids": {"tvdb": "900005", "tmdb": "800005", "imdb": "tt9000005"},
+      "popularity": 18.0,
+      "status": "Continuing",
+      "network": "Northline",
+      "genres": ["Talk Show"],
+      "is_anime": false,
+      "original_language": "en",
+      "episodes": [
+        {"season": 2024, "episode": 1, "title": "Mara Quinn; The Velvet Static", "air_date": "2024-03-01"},
+        {"season": 2024, "episode": 2, "title": "Desmond Oyelaran", "air_date": "2024-03-02"},
+        {"season": 2024, "episode": 3, "title": "Priya Haldane; Cold Harbour", "air_date": "2024-03-03"},
+        {"season": 2024, "episode": 4, "title": "Theo Marchetti; Lucia Vance", "air_date": "2024-03-04"},
+        {"season": 2024, "episode": 5, "title": "Friday Mailbag", "air_date": "2024-03-05"}
+      ]
+    },
+    {
+      "id": "900101",
+      "title": "Kaze no Tsubasa",
+      "original_title": "風の翼",
+      "year": 2018,
+      "first_aired": "2018-04-05",
+      "aliases": ["Wings of the Wind", "風の翼"],
+      "overview": "A boy who can hear the wind joins a guild of glider pilots in a city built on cliffs.",
+      "ids": {"anidb": "90001", "tvdb": "900101", "tmdb": "800101", "imdb": "tt9000101"},
+      "popularity": 47.0,
+      "status": "Ended",
+      "network": "Sora Animation",
+      "genres": ["Animation", "Adventure", "Anime"],
+      "is_anime": true,
+      "original_language": "ja",
+      "seasons": [
+        {"number": 1, "premiere": "2018-04-05", "titles": ["The Boy Who Caught the Wind", "Feathers of Iron", "A Promise at the Summit", "Crosswind", "The Silent Aerodrome", "Wingbeat", "Storm Chasers", "The Broken Compass", "Updraft", "Letters from the Sky", "The Last Gale", "Wings of the Wind"]},
+        {"number": 2, "premiere": "2019-10-03", "titles": ["A New Season of Wind", "Glide Path", "Scattered Feathers", "The Northern Gate", "Thermal", "Echoes in the Clouds", "Tailwind", "The Sky Fortress", "Free Fall", "The Kite Festival", "Headwind", "Turbulence", "Beyond the Horizon"]},
+        {"number": 3, "premiere": "2021-01-07", "titles": ["The Sky Remembers", "Ashfall", "Silver Contrails", "The Windless Valley", "Soaring", "A Feather's Weight", "Crosscurrent", "The Storm's Eye", "Homeward Flight", "The Final Ascent", "Where the Wind Rests", "Tsubasa"]}
+      ],
+      "specials": [
+        {"title": "Wind Beneath the Ruins", "air_date": "2019-03-20"}
+      ]
+    },
+    {
+      "id": "900102",
+      "title": "Tensei Robo Gaiden",
+      "year": 2020,
+      "first_aired": "2020-07-02",
+      "aliases": ["Reincarnated Robot Side Story"],
+      "overview": "A salaryman is reborn as a junkyard robot and decides to make the most of it.",
+      "ids": {"anidb": "90004", "tvdb": "900102", "tmdb": "800102", "imdb": "tt9000102"},
+      "popularity": 29.0,
+      "status": "Ended",
+      "network": "Gearbox Studio",
+      "genres": ["Animation", "Comedy", "Anime"],
+      "is_anime": true,
+      "original_language": "ja",
+      "seasons": [
+        {"number": 1, "premiere": "2020-07-02", "titles": ["Reboot", "Steel Reincarnation", "The Junkyard King", "Gears of Fate", "Overclock", "Iron Heart", "The Second Life", "Rust and Rain", "Factory Reset", "The Copper Knight", "Memory Core", "Short Circuit", "Assembly Line", "The Forge", "Power Surge", "Titanium Vow", "Ghost in the Gearbox", "Spare Parts", "The Clockwork City", "Firmware", "Rewired", "Meltdown", "The Last Upgrade", "Gaiden"]}
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "id": "700001",
+      "title": "The Quiet Meridian",
+      "year": 2019,
+      "release_date": "2019-09-13",
+      "aliases": [],
+      "overview": "A lighthouse cartographer finds a line on the map that moves.",
+      "ids": {"tmdb": "700001", "imdb": "tt7000001"},
+      "popularity": 38.0,
+      "runtime_minutes": 118,
+      "genres": ["Drama", "Mystery"],
+      "certification": "PG-13",
+      "rating": 7.4,
+      "original_language": "en"
+    },
+    {
+      "id": "700002",
+      "title": "The Quiet Meridian Returns",
+      "year": 2022,
+      "release_date": "2022-10-21",
+      "aliases": [],
+      "overview": "The line on the map moves again.",
+      "ids": {"tmdb": "700002", "imdb": "tt7000002"},
+      "popularity": 12.0,
+      "runtime_minutes": 109,
+      "genres": ["Drama", "Mystery"],
+      "collection": "The Quiet Meridian Collection",
+      "certification": "PG-13",
+      "rating": 6.1,
+      "original_language": "en"
+    },
+    {
+      "id": "700003",
+      "title": "Iron Orchard",
+      "year": 1987,
+      "release_date": "1987-05-22",
+      "aliases": [],
+      "overview": "Orchard workers strike against a mechanized harvest.",
+      "ids": {"tmdb": "700003", "imdb": "tt7000003"},
+      "popularity": 9.0,
+      "runtime_minutes": 102,
+      "genres": ["Drama"],
+      "certification": "R",
+      "rating": 7.0,
+      "original_language": "en"
+    },
+    {
+      "id": "700004",
+      "title": "Iron Orchard",
+      "year": 2023,
+      "release_date": "2023-08-11",
+      "aliases": [],
+      "overview": "A remake set on a terraformed moon.",
+      "ids": {"tmdb": "700004", "imdb": "tt7000004"},
+      "popularity": 55.0,
+      "runtime_minutes": 131,
+      "genres": ["Science Fiction", "Drama"],
+      "certification": "PG-13",
+      "rating": 6.6,
+      "original_language": "en"
+    },
+    {
+      "id": "700005",
+      "title": "Paper Moons",
+      "year": 2004,
+      "release_date": "2004-02-06",
+      "aliases": [],
+      "overview": "Two forgers, one gallery and a very long night.",
+      "ids": {"tmdb": "700005", "imdb": "tt7000005"},
+      "popularity": 14.0,
+      "runtime_minutes": 174,
+      "genres": ["Crime", "Comedy"],
+      "certification": "R",
+      "rating": 7.2,
+      "original_language": "en"
+    },
+    {
+      "id": "700006",
+      "title": "Neon Requiem",
+      "year": 2021,
+      "release_date": "2021-11-19",
+      "aliases": [],
+      "overview": "A retired detective takes one last case in a city that never turns its signs off.",
+      "ids": {"tmdb": "700006", "imdb": "tt7000006"},
+      "popularity": 72.0,
+      "runtime_minutes": 142,
+      "genres": ["Thriller", "Neo-noir"],
+      "certification": "R",
+      "rating": 7.8,
+      "original_language": "en"
+    }
+  ]
+}

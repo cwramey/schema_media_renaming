@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animetitles>
+  <anime aid="61001">
+    <title type="main" xml:lang="x-jat">Sora no Kaizoku</title>
+    <title type="official" xml:lang="en">Sky Pirates</title>
+    <title type="official" xml:lang="ja">空の海賊</title>
+    <title type="short" xml:lang="en">SnK</title>
+  </anime>
+  <anime aid="61002">
+    <title type="main" xml:lang="x-jat">Sora no Kaizoku 2nd Season</title>
+    <title type="official" xml:lang="en">Sky Pirates Season 2</title>
+  </anime>
+  <anime aid="61003">
+    <title type="main" xml:lang="x-jat">Sora no Kaizoku Final</title>
+  </anime>
+  <anime aid="61099">
+    <title type="main" xml:lang="x-jat">Umi no Kaizoku</title>
+  </anime>
+</animetitles>

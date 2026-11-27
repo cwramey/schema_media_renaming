@@ -1,0 +1,44 @@
+# Keep the build context small and free of local state. The Dockerfile only needs:
+#   frontend/ (sources + package*.json), backend/pyproject.toml, backend/schema_app/, deploy/
+# Every dot-file and dot-folder at the root: VCS, CI, editor and local tool state
+.*
+**/.DS_Store
+**/Thumbs.db
+
+# docs and source artwork (the built brand assets live in frontend/public/brand)
+docs
+logo
+README.md
+scripts
+
+# Python
+**/__pycache__
+**/*.py[cod]
+**/.pytest_cache
+**/.ruff_cache
+**/.mypy_cache
+backend/.venv
+backend/tests
+backend/data
+**/*.egg-info
+.coverage
+htmlcov
+
+# Node
+**/node_modules
+frontend/dist
+**/*.tsbuildinfo
+
+# Runtime data and secrets. appdata is the root docker-compose.yml's /config: database, secret.key and
+# trashed media must never reach the build context.
+data
+appdata
+**/appdata
+**/*.sqlite3
+**/*.db
+**/*-wal
+**/*-shm
+**/*-journal
+**/secret.key
+# .env files at any depth, the root included (Vite would inline a frontend/.env*.local into the bundle)
+**/.env*

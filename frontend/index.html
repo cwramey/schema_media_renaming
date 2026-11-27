@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Schema</title>
+    <meta name="description" content="Schema: preview-first media renamer for movies, TV and anime." />
+    <meta name="theme-color" content="#15181D" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="/brand/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" href="/brand/mark-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/brand/site.webmanifest" />
+    <meta property="og:title" content="Schema" />
+    <meta property="og:description" content="Preview-first media renamer for movies, TV and anime." />
+    <meta property="og:image" content="/brand/og-image.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <style>
+      /* Paint the app background before CSS loads (no white flash). */
+      html, body { background: #0f1216; }
+      html[data-theme='light'], html[data-theme='light'] body { background: #f3f5f8; }
+    </style>
+    <script>
+      // Resolve the theme before first paint (mirrors src/lib/theme.ts).
+      (function () {
+        try {
+          var p = JSON.parse(localStorage.getItem('schema.theme') || '"system"');
+          var t = p === 'system' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : p;
+          document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Schema needs JavaScript enabled.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

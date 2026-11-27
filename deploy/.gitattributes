@@ -1,0 +1,4 @@
+# Scripts run inside Linux containers / download clients: always LF, even on Windows checkouts.
+*.sh text eol=lf
+*.py text eol=lf
+*.xml text eol=lf

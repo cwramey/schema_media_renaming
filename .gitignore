@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Runtime data (SQLite DB and its WAL/journal files, caches, demo library, secrets). appdata/ is
+# where the root docker-compose.yml keeps /config (database, secret.key, trashed media).
+data/
+appdata/
+backend/data/
+backend/tests/.pytest-data/
+*.sqlite3
+*.db
+**/*.db-wal
+**/*.db-shm
+**/*.db-journal
+**/*.sqlite3-wal
+**/*.sqlite3-shm
+**/*.sqlite3-journal
+**/secret.key
+# .env files at any depth: a frontend/.env*.local would be inlined into the built bundle.
+**/.env
+**/.env.*
+!**/.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

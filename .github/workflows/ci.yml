@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  workflow_dispatch: # Only runs when explicitly requested (gh workflow run ci.yml)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20   # earlier runs hung for 6h (the default) and drained the Actions budget
+    strategy:
+      fail-fast: false
+      matrix:
+        # Linux is what ships; Windows is the dev host (case-insensitive paths, no symlinks).
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: python -m ruff check .
+      - name: Tests
+        run: python -m pytest
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Unit tests
+        run: npm test
+      - name: Build
+        run: npm run build
+
+  docker:
+    name: Docker image (build only, no push)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [backend, frontend]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: docker/setup-buildx-action@v3
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: schema-media:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test (demo mode)
+        run: |
+          docker run -d --name schema -p 8420:8420 -e SCHEMA_DEMO=1 -e PUID=1000 -e PGID=1000 schema-media:ci
+          for i in $(seq 1 45); do
+            if curl -fsS http://127.0.0.1:8420/api/health; then echo; break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:8420/api/health
+          curl -fsS -o /dev/null -w "SPA: %{http_code}\n" http://127.0.0.1:8420/
+          docker exec schema mediainfo --Version
+          docker exec schema sh -c 'test "$(stat -c %u /config)" = 1000'
+          docker exec schema python /usr/local/bin/schema-healthcheck
+      - name: Container logs
+        if: always()
+        run: docker logs schema || true
