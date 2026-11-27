@@ -16,7 +16,7 @@
 ![Providers](https://img.shields.io/badge/providers-TMDb%20%7C%20TVDB%20%7C%20AniDB%20%7C%20Trakt%20%7C%20TVmaze-01B4E4?style=for-the-badge)
 ![Media servers](https://img.shields.io/badge/media%20servers-Plex%20%7C%20Jellyfin%20%7C%20Emby-E5A00D?style=for-the-badge&logo=plex&logoColor=white)
 
-[Quick start](#quick-start) · [Features](#features) · [Download clients](#download-clients) · [Configuration](#configuration) · [Documentation](#documentation) · [Development](#development) · [Known limitations](#known-limitations)
+[Screenshots](#screenshots) · [Quick start](#quick-start) · [Features](#features) · [Download clients](#download-clients) · [Configuration](#configuration) · [Documentation](#documentation) · [Development](#development) · [Known limitations](#known-limitations)
 
 The media renaming app of the **NEXUS** suite
 
@@ -27,6 +27,26 @@ The media renaming app of the **NEXUS** suite
 | Watch folders and SABnzbd / qBittorrent webhooks pick up finished downloads. A file only counts once it and its whole download folder have stopped changing. | Files are identified with TMDb, TheTVDB, AniDB, Trakt and TVmaze, with automatic fallback. Every item gets a confidence score; low-confidence items wait in Review. | Each job previews *original → parsed → proposed path*, then moves, copies or links files atomically, with sidecars, conflict policies and a persistent undo journal. | Empty source folders are removed, download leftovers are held for a day and then deleted, and Plex / Jellyfin / Emby refresh only the folders that changed. |
 
 **Schema is a web-native media organizer and renamer for movies, TV and anime. It replaces FileBot and the `jlesage/filebot` noVNC container: it shows a reviewable preview of every rename, and then moves, copies or links files safely with full undo.**
+
+## Screenshots
+
+All screenshots are from the built-in demo mode, which uses a fictional library.
+
+**Home** - the pipeline at a glance: downloads waiting, files that need a decision, and what was just organized.
+
+![Home page with the Incoming, Needs review and Renaming pipeline and the recently organized files](docs/images/home.png)
+
+**Match workspace** - every file in a job with its parsed details, proposed path and confidence. The inspector on the right shows the destination, the candidates and a search for a different match.
+
+![Match workspace listing 25 demo files with parsed tags, proposed paths, confidence scores and the item inspector](docs/images/workspace.png)
+
+**History** - every move with its original and new path, and one-click undo.
+
+![History page listing moved files with source and destination paths and Undo buttons](docs/images/history.png)
+
+**Format builder** - FileBot-compatible naming formats with live validation, bindings and a preview against sample files.
+
+![Format builder with a series format, the method and binding palettes and a live preview](docs/images/format-builder.png)
 
 ## Features
 
@@ -46,13 +66,25 @@ The media renaming app of the **NEXUS** suite
 
 ### Docker
 
+There is no prebuilt public image: you build it yourself from this repository. Clone it on the
+machine that will run Schema, then let Compose build and start it:
+
 ```bash
-docker compose up -d --build        # builds the image from this repository
+git clone https://github.com/cwramey/schema_media_renaming.git
+cd schema_media_renaming
+docker compose up -d --build        # builds schema-media:latest from the Dockerfile and starts it
 docker compose logs -f schema       # wait for "Uvicorn running on http://0.0.0.0:8420"
 ```
 
+Or build and run the image without Compose:
+
+```bash
+docker build -t schema-media:latest .
+docker run -d --name schema -p 8420:8420 -v /path/to/appdata:/config -v /path/to/media:/storage schema-media:latest
+```
+
 Open `http://<server>:8420` and create the admin account with the one-time setup code from the log.
-Every push to `main` also publishes `ghcr.io/cwramey/schema-media:latest`. Volumes, Unraid, reverse
+To update, `git pull` and run `docker compose up -d --build` again. Volumes, Unraid, reverse
 proxies, backups and upgrades are covered in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ### Development (demo mode)
@@ -137,7 +169,7 @@ cd frontend && npm run typecheck && npm run lint && npm test && npm run build
 backend/   FastAPI app (schema_app/), tests/
 frontend/  React + Vite + Tailwind SPA
 deploy/    container entrypoint, Unraid template, download-client hooks
-docs/      spec, deployment and migration guides
+docs/      spec, deployment and migration guides, README screenshots (images/)
 logo/      source brand assets (processed by scripts/brand.py)
 ```
 
